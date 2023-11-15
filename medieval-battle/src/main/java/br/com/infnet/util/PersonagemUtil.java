@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import br.com.infnet.batalhas.Batalha;
+import br.com.infnet.exception.HeroiInvalidoException;
 import br.com.infnet.personagens.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +19,7 @@ public class PersonagemUtil {
             return personagems.get(escolha - 1);
         } catch (Exception e) {
             logger.error("Escolha de herói inexistente.");
-            return new Guerreiro();
+            throw new HeroiInvalidoException("Escolha de herói inexistente.");
         }
     }
     public Personagem escolhaMostro(){
