@@ -8,10 +8,13 @@ import java.util.Scanner;
 import br.com.infnet.personagens.*;
 import br.com.infnet.util.PersonagemUtil;
 import br.com.infnet.batalhas.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class App 
 {
+    private static final Logger logger = LoggerFactory.getLogger(App.class);
     public static void main( String[] args )
     {
         Scanner in = new Scanner(System.in);
@@ -32,7 +35,7 @@ public class App
             Personagem vencedor = bat.ataque();
             System.out.println("O vencedor foi " + vencedor.getNome());
         }catch(IOException ex) {
-            System.out.println("Erro na criação do log!");
+            logger.error("Erro na criação do log!");
         }
 
 

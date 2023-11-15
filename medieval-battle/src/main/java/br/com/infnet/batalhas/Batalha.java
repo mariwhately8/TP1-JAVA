@@ -1,6 +1,9 @@
 package br.com.infnet.batalhas;
 
 import br.com.infnet.personagens.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 
 public class Batalha{
@@ -9,6 +12,8 @@ public class Batalha{
     Personagem atacante;
     Personagem defensor;
     String apelido;
+
+    private static final Logger logger = LoggerFactory.getLogger(Batalha.class);
 
     public Batalha(Personagem heroi, Personagem monstro, String apelido){
         this.heroi = heroi;
@@ -20,17 +25,17 @@ public class Batalha{
         while(true){
             int iniciativaHeroi = heroi.calcularIniciativa();
             int iniciativaMonstro = monstro.calcularIniciativa();
-            System.out.println("A iniciativa do " + heroi.getNome() + " é: "
+            logger.info("A iniciativa do " + heroi.getNome() + " é: "
                     + iniciativaHeroi);
-            System.out.println("A iniciativa do " + monstro.getNome() + " é: "
+            logger.info("A iniciativa do " + monstro.getNome() + " é: "
                     + iniciativaMonstro);
             if(iniciativaHeroi > iniciativaMonstro){
-                System.out.println(heroi.getNome() + " ataca!");
+                logger.info(heroi.getNome() + " ataca!");
                 atacante = heroi;
                 defensor = monstro;
                 break;
             }else if(iniciativaHeroi < iniciativaMonstro){
-                System.out.println(monstro.getNome() + " ataca!");
+                logger.info(monstro.getNome() + " ataca!");
                 atacante = monstro;
                 defensor = heroi;
                 break;
@@ -50,18 +55,18 @@ public class Batalha{
             if(fatorAtaque > fatorDefesa){
                 int resultado = defensor.getPontosDeVida() - calculoDano;
                 defensor.setPontosDeVida(resultado);
-                System.out.println("O fator de ataque é: " + fatorAtaque);
-                System.out.println("O fator de defesa é: " + fatorDefesa);
-                System.out.println("O vencedor é: " + atacante.getNome());
-                System.out.println("O fator de dano do defensor foi: "
+                logger.debug("O fator de ataque é: " + fatorAtaque);
+                logger.debug("O fator de defesa é: " + fatorDefesa);
+                logger.debug("O vencedor é: " + atacante.getNome());
+                logger.debug("O fator de dano do defensor foi: "
                         + calculoDano);
-                System.out.println("O defensor agora tem: " + resultado + " pontos de vida.");
+                logger.debug("O defensor agora tem: " + resultado + " pontos de vida.");
             }else if(fatorAtaque < fatorDefesa){
-                System.out.println("O fator de ataque é: " + fatorAtaque);
-                System.out.println("O fator de defesa é: " + fatorDefesa);
-                System.out.println("Nada acontece.");
+                logger.debug("O fator de ataque é: " + fatorAtaque);
+                logger.debug("O fator de defesa é: " + fatorDefesa);
+                logger.debug("Nada acontece.");
             }else{
-                System.out.println("Empate!");
+                logger.debug("Empate!");
             }
             numeroJogadas ++;
         }
@@ -72,12 +77,6 @@ public class Batalha{
         }else{
             vitoria = false;
         }
-        /*
-        LinhasLog linhasLog = new LinhasLog(heroi.getNome(), vitoria, monstro.getNome(), numeroJogadas);
-
-        System.out.println(linhasLog.geraLinha());
-        Log log = new Log(apelido);
-        log.adicionarLinha(linhasLog);*/
         return atacante;
     }
 
